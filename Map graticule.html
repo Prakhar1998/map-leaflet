@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset = "utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../leaflet.css" />
+	<script src="../leaflet.js"></script>
+	<link rel="stylesheet" href="../Project/Leaflet.Coordinates-0.1.5.css" />
+	<script src="../Project/Leaflet.Coordinates-0.1.5.min.js"></script>
+	
+	<style>
+		.map {
+			  height: 400px;
+			  width: 800px;
+			}
+		
+		body {
+			  height: 100%;
+			  margin: 0;
+			  padding: 0;
+			}
+			
+		html {height: 100%;}
+		
+	</style>
+    
+	
+</head>
+<body>
+	<div id = "map" class = "map"></div>
+	
+	 <script src="../leaflet.latlng-graticule.js"></script>
+	
+	 
+	<script>	
+	
+		var tile_layer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			map = new L.Map('map',{
+			maxZoom: 14,
+			center: [24, 82],
+			zoom: 4
+			});
+			
+		var baselayer = L.tileLayer(tile_layer, {
+			unloadInvisibleTiles: false,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		});
+			
+		map.addLayer(baselayer);
+		
+		
+		L.latlngGraticule({
+			showLabel: true,
+			color: '#000000',
+			zoomInterval: [
+				{start: 2, end: 3, interval: 30},
+				{start: 3, end: 3, interval: 20},
+				{start: 4, end: 4, interval: 10},
+				{start: 5, end: 7, interval: 5},
+				{start: 8, end: 10, interval: 1}
+			]
+		}).addTo(map);
+		
+		//add configured controls
+		var coordinates = L.control.coordinates({
+			position:"bottomleft",
+			decimals:2,
+			decimalSeperator:".",
+			labelTemplateLat:"Latitude: {y}N",
+			labelTemplateLng:"Longitude: {x}E"
+		}).addTo(map);
+		
+		
+
+	</script>	
+</body>
+</html>
